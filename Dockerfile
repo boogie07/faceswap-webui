@@ -21,7 +21,8 @@ RUN pip uninstall -y onnxruntime && pip install --no-cache-dir onnxruntime-gpu
 ENV PYTHONPATH=/app/dot/src
 
 # model checkpoints (~4.1 GB, baked into the image)
-RUN gdown --id 1Y_11R66DL4N1WY8cNlXVNR3RkHnGDGWX -O checkpoints.zip \
+# NOTE: gdown >= 5.x dropped the --id flag; pass the URL/ID as a positional arg
+RUN gdown "https://drive.google.com/uc?id=1Y_11R66DL4N1WY8cNlXVNR3RkHnGDGWX" -O checkpoints.zip \
     && unzip -q -o checkpoints.zip && rm checkpoints.zip \
     && test -f saved_models/simswap/checkpoints/people/550000_net_G.pth
 
